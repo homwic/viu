@@ -8,13 +8,27 @@ app.get('/', async (req, res) => {
     const username = req.query.username || '';
     const domain   = req.query.domain || '';
     const password = req.query.password || '';
-    const phone    = '6282127001314'; // Hardcode
+    const paket    = req.query.paket || '1'; // Default ke paket 1
 
     // Validasi parameter user
     if (!username || !domain || !password) {
         return res.status(400).json({
             status: 'error',
             message: 'Parameter kurang lengkap',
+            copyright: '@LUTIFY'
+        });
+    }
+
+    // Tentukan nomor telepon berdasarkan paket
+    let phone = '';
+    if (paket === '1') {
+        phone = '6281328345758'; // Paket 1
+    } else if (paket === '200') {
+        phone = '6282199189441'; // Paket 200
+    } else {
+        return res.status(400).json({
+            status: 'error',
+            message: 'Paket tidak valid',
             copyright: '@LUTIFY'
         });
     }
@@ -61,5 +75,5 @@ app.get('/', async (req, res) => {
 // Jalankan server pada port 3000
 app.listen(3000, () => {
     console.log('Server running on port 3000');
-    console.log('Coba akses: http://localhost:3000/your-endpoint?username=ISI&domain=ISI&password=ISI');
+    console.log('Coba akses: http://localhost:3000/your-endpoint?username=ISI&domain=ISI&password=ISI&paket=1');
 });
